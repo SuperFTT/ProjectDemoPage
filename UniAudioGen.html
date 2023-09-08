@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Hugo 0.66.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,600" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/skeleton.css">
+  <link rel="stylesheet" href="../css/custom.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="alternate" href="index.xml" type="application/rss+xml" title="Speech Research">
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+  <title>Unified cross-modal audio generation-demo page</title>
+</head>
+
+<body rightmargin="150" leftmargin="150" topmargin="100" bottommargin="100" line-height:160%>
+  <font size="5">
+
+    <div class="container">
+
+      <header role="banner">
+
+      </header>
+      <main role="main">
+        <article itemscope itemtype="https://schema.org/BlogPosting">
+          <br></br>
+          <h1 itemprop="headline" align="center">
+            <font color="000093" size="7">Unified cross-modal audio generation
+            </font>
+          </h1>
+          <br></br>
+          <p style="line-height:1.0" align="center"><b>
+              <font color="#000000">Yuan Zhou, Xiulian Peng, Yan Lu</font>
+          <p style="line-height:0.6" align="center">
+            <font color="#000000">Microsoft Research</font>
+          </p>
+          <section itemprop="entry-text">
+            <br>
+            <div class="container">
+              <center>
+                <p><a href="https://arxiv.org/abs/2301.12503">[Paper on ArXiv]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/haoheliu/AudioLDM">[Code on GitHub]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://huggingface.co/spaces/haoheliu/audioldm-text-to-audio-generation">[Hugging Face Space]</a></p>
+              </center>
+            </div>
+            
+
+            <!--
+<br></br>
+<h2 id="audio-samples"><font color="000093">Audio Samples</font></h2>
+<p><font color="#000000"> Our method is shown in Figure 1. The below audio samples show the comparison between Recordings, ground-truth (GT) mel + Vocoder, FastSpeech 2, DiffGAN-TTS, DiffSpeech, ProDiff, GradTTS, ResGrad-4 (Our method), and ResGrad-50 (Our method). Three samples are randomly selected from the test dataset of LJSpeech, LibriTTS, and VCTK. Details are illustrated as follows: </font></p>
+<ul style="list-style-type:square">
+-->
+            <!--
+<li><font color="#000000"> For each dataset, the same HiFi-GAN vocoder pretrained on GT mel is used for all methods. </font></li>
+-->
+            <!--<li>
+<font color="#000000"> Each generated sample has been normalized, and the raw recording is shown in Recordings. </font></li>
+-->
+            <!--<li>
+<li><font color="#000000"> Our method ResGrad uses FastSpeech 2 as the initial predictor for estimating mel-spectrogram. </font></li>
+-->
+
+
+            <br></br>
+            <h2 id="Text-to-audio generation">
+              <font color="000093">Text-to-audio generation</font>
+            </h2>
+
+            <!--
+<p><em><font color="#000000">Acoustic Environment Control:</font></em></p>
+-->
+
+            <table class="table" align="center" style="table-layout: fixed;word-break:break-word">
+              <thead>
+                <tr>
+                  <td scope="col" width="60%">
+                    <font color="061E61">Instruction</font>
+                  </td>
+                  <td scope="col" width="40%">
+                    <font color="061E61">Output audio</font>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <font color="#000000" size=4>Train passing and a short honk.</font>
+                  </td>
+                  <td><audio controls="controls">
+                    <source src="samples/1_text2audio/Train passing and a short honk.wav"
+                      autoplay />Your browser does not support the audio element.
+                  </audio></td>
+                </tr>
+                <tr>
+                  <td>
+                    <font color="#000000" size=4>Crowd people cheering at a sports game.</font>
+                  </td>
+                  <td><audio controls="controls">
+                    <source src="samples/1_text2audio/Crowd people cheering at a sports game.flac"
+                      autoplay />Your browser does not support the audio element.
+                  </audio></td>
+                </tr>
+                <tr>
+                  <td>
+                    <font color="#000000" size=4>Man speaks with birds chirping and dogs barking in the back.</font>
+                  </td>
+                  <td><audio controls="controls">
+                    <source src="samples/1_text2audio/Man.wav"
+                      autoplay />Your browser does not support the audio element.
+                  </audio></td>
+                </tr>
+                <tr>
+                  <td>
+                    <font color="#000000" size=4>Cheerful ukulele strumming in a beachside jam.</font>
+                  </td>
+                  <td><audio controls="controls">
+                    <source src="samples/1_text2audio/Cheerful ukulele strumming in a beachside jam.flac"
+                      autoplay />Your browser does not support the audio element.
+                  </audio></td>
+                </tr>
+                <tr>
+                  <td>
+                    <font color="#000000" size=4>Jazz music by a piano.</font>
+                  </td>
+                  <td><audio controls="controls">
+                    <source src="samples/1_text2audio/Jazz music by a piano.flac"
+                      autoplay />Your browser does not support the audio element.
+                  </audio></td>
+                </tr>
+              </tbody>
+              <!-- <tbody>
+                <tr>
+
+                  <td><audio controls="controls">
+                      <source
+                        src="samples/1_text2audio/2_humantextprompt/Two space shuttles are fighting in the space.wav"
+                        autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                  <td><audio controls="controls">
+                      <source src="samples/1_text2audio/2_humantextprompt/The sound of a steam engine.wav" autoplay />
+                      Your browser does not support the audio element.
+                    </audio></td>
+
+                </tr>
+              </tbody> -->
+            </table>
+
+            <br></br>
+            <h2 id="Instruction-based audio editing">
+              <font color="000093">Instruction-based audio editing</font>
+            </h2>
+
+            <table class="table" align="center" style="table-layout: fixed;word-break:break-word">
+              <thead>
+                <tr>
+                  <td scope="col" width="40%">
+                    <font color="061E61">Instruction</font>
+                  </td>
+                  <td scope="col" width="30%" align="center">
+                    <font color="061E61">Input audio</font>
+                  </td>
+                  <td scope="col" width="30%" align="center">
+                    <font color="061E61">Edited audio</font>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <font color="#000000" size=4><b>Add</b> a car horn honks several times.</font>
+                  </td>
+                  <td><audio controls="controls">
+                    <source src="samples/2_audio_editing/Add ori.wav"
+                      autoplay />Your browser does not support the audio element.
+                  </audio></td>
+                  <td><audio controls="controls">
+                    <source src="samples/2_audio_editing/Add a car horn honks several times.wav"
+                      autoplay />Your browser does not support the audio element.
+                  </audio></td> 
+                </tr>
+
+                <tr>
+                  <td>
+                    <font color="#000000" size=4><b>Remove</b> people cheering.</font>
+                  </td>
+                  <td><audio controls="controls">
+                    <source src="samples/2_audio_editing/Remove ori.wav"
+                      autoplay />Your browser does not support the audio element.
+                  </audio></td>
+                  <td><audio controls="controls">
+                    <source src="samples/2_audio_editing/Remove people cheering.wav"
+                      autoplay />Your browser does not support the audio element.
+                  </audio></td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <font color="#000000" size=4><b>Replace</b> people yelling by insects buzzing.</font>
+                  </td>
+                  <td><audio controls="controls">
+                    <source src="samples/2_audio_editing/Replace ori.wav"
+                      autoplay />Your browser does not support the audio element.
+                  </audio></td>
+                  <td><audio controls="controls">
+                    <source src="samples/2_audio_editing/Replace people yelling by insects buzzing.wav"
+                      autoplay />Your browser does not support the audio element.
+                  </audio></td>
+                </tr>
+
+              </tbody>
+            </table>
+
+            <br></br>
+            <h2 id="Audio-visual universal speech enhancement">
+              <font color="000093">Audio-visual universal speech enhancement</font>
+            </h2>
+            
+            <br></br>
+            <p><b>
+              <font color="061E61" size=5>Personalized noise suppression</font>
+            </b></p>
+
+            <table class="table" align="center" style="table-layout: fixed;word-break:break-word">
+              <thead>
+                <tr>
+                  <td scope="col" width="25%" align="center">
+                    <font color="061E61" size="4">Noisy input</font>
+                  </td>
+                  <td scope="col" width="25%">
+                    <font color="061E61" size="4">Audio-only product model</font>
+                  </td>
+                  <td scope="col" width="25%" align="center">
+                    <font color="061E61" size="4">VisualVoice</font>
+                  </td>
+                  <td scope="col" width="25%" align="center">
+                    <font color="061E61" size="4">AV-UNIVERSE(Ours)</font>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><video width="200" height="250" controls>
+                    <source src="samples/3_avse/noisy.mp4" type="video/mp4">
+                    Your browser does not support the audio element.
+                  </video></td>
+
+                  <td><video width="200" height="250" controls>
+                    <source src="samples/3_avse/PDNS.mp4" type="video/mp4">
+                    Your browser does not support the audio element.
+                  </video></td>
+
+                  <td><video width="200" height="250" controls>
+                    <source src="samples/3_avse/VisualVoice.mp4" type="video/mp4">
+                    Your browser does not support the audio element.
+                  </video></td>
+
+                  <td><video width="200" height="250" controls>
+                    <source src="samples/3_avse/AV-UNIVERSE.mp4" type="video/mp4">
+                    Your browser does not support the audio element.
+                  </video></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p><b>
+              <font color="061E61" size=5>Personalized speech inpainting</font>
+            </b></p>
+
+            <table class="table" align="center" style="table-layout: fixed;word-break:break-word">
+              <thead>
+                <tr>
+                  <td scope="col" width="25%" align="center">
+                    <font color="061E61" size="4">Noisy input</font>
+                  </td>
+                  <td scope="col" width="25%">
+                    <font color="061E61" size="4">Audio-only product model</font>
+                  </td>
+                  <td scope="col" width="25%" align="center">
+                    <font color="061E61" size="4">VisualVoice</font>
+                  </td>
+                  <td scope="col" width="25%" align="center">
+                    <font color="061E61" size="4">AV-UNIVERSE(Ours)</font>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><video width="200" height="250" controls>
+                    <source src="samples/3_avsi/noisy.mp4" type="video/mp4">
+                    Your browser does not support the audio element.
+                  </video></td>
+
+                  <td><video width="200" height="250" controls>
+                    <source src="samples/3_avsi/PDNS.mp4" type="video/mp4">
+                    Your browser does not support the audio element.
+                  </video></td>
+
+                  <td><video width="200" height="250" controls>
+                    <source src="samples/3_avsi/VisualVoice.mp4" type="video/mp4">
+                    Your browser does not support the audio element.
+                  </video></td>
+
+                  <td><video width="200" height="250" controls>
+                    <source src="samples/3_avsi/AV-UNIVERSE.mp4" type="video/mp4">
+                    Your browser does not support the audio element.
+                  </video></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p><b>
+              <font color="061E61" size=5>Personalized speech separation</font>
+            </b></p>
+
+            <table class="table" align="center" style="table-layout: fixed;word-break:break-word">
+              <thead>
+                <tr>
+                  <td scope="col" width="25%" align="center">
+                    <font color="061E61" size="4">Noisy input</font>
+                  </td>
+                  <td scope="col" width="25%" align="center">
+                    <font color="061E61" size="4">Speaker 1</font>
+                  </td>
+                  <td scope="col" width="25%" align="center">
+                    <font color="061E61" size="4">Speaker 2</font>
+                  </td>
+                  <td scope="col" width="25%" align="center">
+                    <font color="061E61" size="4">Speaker 3</font>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><video width="250" height="200" controls>
+                    <source src="samples/3_avss/noisy.mp4" type="video/mp4">
+                    Your browser does not support the audio element.
+                  </video></td>
+
+                  <td><video width="250" height="200" controls>
+                    <source src="samples/3_avss/speaker1.mp4" type="video/mp4">
+                    Your browser does not support the audio element.
+                  </video></td>
+
+                  <td><video width="250" height="200" controls>
+                    <source src="samples/3_avss/speaker2.mp4" type="video/mp4">
+                    Your browser does not support the audio element.
+                  </video></td>
+
+                  <td><video width="250" height="200" controls>
+                    <source src="samples/3_avss/speaker3.mp4" type="video/mp4">
+                    Your browser does not support the audio element.
+                  </video></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <br></br>
+            <h2 id="Textless speech feature disentangle and conversion">
+              <font color="000093">Textless speech feature disentangle and conversion</font>
+            </h2>
+
+            <br></br>
+            <p><b>
+              <font color="061E61" size=5>Fine-grained speech style transfer</font>
+            </b></p>
+
+            <table class="table" align="center" style="table-layout: fixed;word-break:break-word">
+              <thead>
+                <tr>
+                  <td scope="col" width="30%">
+                    <font color="061E61">Input audio</font>
+                  </td>
+                  <td scope="col" width="30%">
+                    <font color="061E61">Refer audio</font>
+                  </td>
+                  <td scope="col" width="40%">
+                    <font color="061E61">Output audio</font>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><audio controls="controls">
+                    <source src="samples/4_speech_trans/input.wav"
+                      autoplay />Your browser does not support the audio element.
+                  </audio></td>
+                  <td><audio controls="controls">
+                    <source src="samples/4_speech_trans/reference.wav"
+                      autoplay />Your browser does not support the audio element.
+                  </audio></td>
+                  <td>
+                    <table class="table" align="center" style="table-layout: fixed;word-break:break-word">
+                      <tbody>
+                        <tr>
+                          <td scope="row">
+                            <font color="061E61" size="4">Pitch</font>
+                            <audio controls="controls">
+                              <source src="samples/4_speech_trans/pitch.wav"
+                                autoplay />Your browser does not support the audio element.
+                            </audio>
+                            </td>
+                        </tr>
+                        <tr>
+                          <td scope="row">
+                            <font color="061E61" size="4">Rhythm</font>
+                            <audio controls="controls">
+                              <source src="samples/4_speech_trans/rhythm.wav"
+                                autoplay />Your browser does not support the audio element.
+                            </audio>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td scope="row">
+                            <font color="061E61" size="4">Speaker</font>
+                            <audio controls="controls">
+                              <source src="samples/4_speech_trans/speaker.wav"
+                                autoplay />Your browser does not support the audio element.
+                            </audio>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td scope="row">
+                            <font color="061E61" size="4">Prosody</font>
+                            <audio controls="controls">
+                              <source src="samples/4_speech_trans/prosody.wav"
+                                autoplay />Your browser does not support the audio element.
+                            </audio>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td scope="row">
+                            <font color="061E61" size="4">Total</font>
+                            <audio controls="controls">
+                              <source src="samples/4_speech_trans/prosody+speaker.wav"
+                                autoplay />Your browser does not support the audio element.
+                            </audio>
+                          </td>
+                        </tr>
+                      
+                      </tbody>
+                    </table>
+
+                  </td> 
+                </tr>
+
+              </tbody>
+            </table>
+
+            <br></br>
+            <p><b>
+              <font color="061E61" size=5>Emotion conversion</font>
+            </b></p>
+
+            <table class="table" align="center" style="table-layout: fixed;word-break:break-word">
+              <thead>
+                <tr>
+                  <td scope="col" width="33%" align="center">
+                    <font color="061E61">Input audio</font>
+                  </td>
+                  <td scope="col" width="33%" align="center">
+                    <font color="061E61">Refer audio</font>
+                  </td>
+                  <td scope="col" width="33%" align="center">
+                    <font color="061E61">Output audio</font>
+                  </td>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                    <td>
+                    <font color="061E61" size="4" align="center">Happy</font>
+                    <audio controls="controls">
+                      <source src="samples/4_emo_conv/input_happy.wav"
+                        autoplay />Your browser does not support the audio element.
+                    </audio>
+                    </td>
+                    <td>
+                      <font color="061E61" size="4" align="center">Neutral</font>
+                      <audio controls="controls">
+                        <source src="samples/4_emo_conv/reference_neutral.wav"
+                          autoplay />Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <font color="061E61" size="4" align="center">Neutral</font>
+                      <audio controls="controls">
+                        <source src="samples/4_emo_conv/output_neutral.wav"
+                          autoplay />Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                </tr>
+                <tr>
+                  <td>
+                  <font color="061E61" size="4" align="center">Neutral</font>
+                  <audio controls="controls">
+                    <source src="samples/4_emo_conv/input_neutral.wav"
+                      autoplay />Your browser does not support the audio element.
+                  </audio>
+                  </td>
+                  <td>
+                    <font color="061E61" size="4" align="center">Angry</font>
+                    <audio controls="controls">
+                      <source src="samples/4_emo_conv/reference_angry.wav"
+                        autoplay />Your browser does not support the audio element.
+                    </audio>
+                  </td>
+                  <td>
+                    <font color="061E61" size="4" align="center">Angry</font>
+                    <audio controls="controls">
+                      <source src="samples/4_emo_conv/output_angry.wav"
+                        autoplay />Your browser does not support the audio element.
+                    </audio>
+                  </td>
+              </tr>
+              </tbody>
+
+            </table>
+
+            <hr>
+          </section>
+        </article>
+      </main>
+
+    </div>
+
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+      ga('create', 'UA-139981676-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+    <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+         HTML: ["input/TeX","output/HTML-CSS"],
+         TeX: {
+                Macros: {
+                         bm: ["\\boldsymbol{#1}", 1],
+                         argmax: ["\\mathop{\\rm arg\\,max}\\limits"],
+                         argmin: ["\\mathop{\\rm arg\\,min}\\limits"]},
+                extensions: ["AMSmath.js","AMSsymbols.js"],
+                equationNumbers: { autoNumber: "AMS" } },
+         extensions: ["tex2jax.js"],
+         jax: ["input/TeX","output/HTML-CSS"],
+         tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true },
+         "HTML-CSS": { availableFonts: ["TeX"],
+                       linebreaks: { automatic: true } }
+     });
+ </script>
+
+    <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       tex2jax: {
+         skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+       }
+     });
+ </script>
+
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+      </script>
+
+
+
+
+</body>
+
+</html>
