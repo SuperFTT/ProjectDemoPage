@@ -34,7 +34,7 @@
           </h1>
           <br />
           <p style="line-height:1.0" align="center"><b>
-              <font color="#000000">Yuan Zhou, Xiulian Peng, Yan Lu</font>
+              <font color="#000000">Yuan Zhou</font>
           <p style="line-height:0.6" align="center">
             <img src="images/microsoft_logo.png" width="25" height="25" />
             <font color="#000000">Microsoft Research</font>
@@ -45,33 +45,12 @@
                 <p><a href="https://arxiv.org/abs/2301.12503">[Paper on ArXiv]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/haoheliu/AudioLDM">[Code on GitHub]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://huggingface.co/spaces/haoheliu/audioldm-text-to-audio-generation">[Hugging Face Space]</a></p>
               </center>
             </div>
-            
-
-            <!--
-<br></br>
-<h2 id="audio-samples"><font color="000093">Audio Samples</font></h2>
-<p><font color="#000000"> Our method is shown in Figure 1. The below audio samples show the comparison between Recordings, ground-truth (GT) mel + Vocoder, FastSpeech 2, DiffGAN-TTS, DiffSpeech, ProDiff, GradTTS, ResGrad-4 (Our method), and ResGrad-50 (Our method). Three samples are randomly selected from the test dataset of LJSpeech, LibriTTS, and VCTK. Details are illustrated as follows: </font></p>
-<ul style="list-style-type:square">
--->
-            <!--
-<li><font color="#000000"> For each dataset, the same HiFi-GAN vocoder pretrained on GT mel is used for all methods. </font></li>
--->
-            <!--<li>
-<font color="#000000"> Each generated sample has been normalized, and the raw recording is shown in Recordings. </font></li>
--->
-            <!--<li>
-<li><font color="#000000"> Our method ResGrad uses FastSpeech 2 as the initial predictor for estimating mel-spectrogram. </font></li>
--->
 
 
             <br></br>
             <h2 id="Text-to-audio generation">
               <font color="000093">Text-to-audio generation</font>
             </h2>
-
-            <!--
-<p><em><font color="#000000">Acoustic Environment Control:</font></em></p>
--->
 
             <table class="table" align="center" style="table-layout: fixed;word-break:break-word">
               <thead>
@@ -210,6 +189,58 @@
                   </audio></td>
                 </tr>
 
+              </tbody>
+            </table>
+
+            <br></br>
+            <h2 id="Vision-to-audio generation">
+              <font color="000093">Vision-to-audio generation</font>
+            </h2>
+
+            <table class="table" align="center" style="table-layout: fixed;word-break:break-word">
+              <tbody>
+                <tr>
+                  <td><img width="200" height="250" decoding="async"
+                    src="samples/5_vision2audio/thunder_lightning.png"
+                    alt="thunder_lightning">
+                  </img></td>
+
+                  <td><img width="200" height="250" decoding="async"
+                    src="samples/5_vision2audio/bird.jfif"
+                    alt="bird">
+                  </img></td>
+
+                  <td><video width="250" height="250" controls>
+                    <source src="samples/5_vision2audio/fireworks.mp4" type="video/mp4">
+                    Your browser does not support the audio element.
+                  </video></td>
+
+                  <td><video width="180" height="250" controls>
+                    <source src="samples/5_vision2audio/violin.mp4" type="video/mp4">
+                    Your browser does not support the audio element.
+                  </video></td>
+                </tr>
+                <tr>
+                  <td><audio controls="controls">
+                    <source src="samples/5_vision2audio/thunder_lightning.wav"
+                    />Your browser does not support the audio element.
+                  </audio></td>
+
+                  <td><audio controls="controls">
+                    <source src="samples/5_vision2audio/bird.wav"
+                    />Your browser does not support the audio element.
+                  </audio></td>
+
+                  <td><audio controls="controls">
+                    <source src="samples/5_vision2audio/fireworks.wav"
+                    />Your browser does not support the audio element.
+                  </audio></td>
+
+                  <td><audio controls="controls">
+                    <source src="samples/5_vision2audio/violin.wav"
+                    />Your browser does not support the audio element.
+                  </audio></td>
+                </tr>
               </tbody>
             </table>
 
